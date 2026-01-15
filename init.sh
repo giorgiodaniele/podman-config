@@ -42,21 +42,22 @@ dnf install -y podman-5:${PODMAN_VERSION}-13.el9_6 -y crun-${CRUN_VERSION}-1.el9
 #
 #
 
+# Copia la configurazione containers.conf per garantire l'utlizzo
+# corretto e coerente dei backend
+cp containers.conf /etc/containers/container.conf
+
 #
 #
 # Verifica backends
 #
 #
 
-podman_version=$(podman version --format '{{.Client.Version}}')
 oci_name=$(podman info --format '{{.Host.OCIRuntime.Name}}')
-oci_version=$(podman info --format '{{.Host.OCIRuntime.Version}}')
 net_name=$(podman info --format '{{.Host.NetworkBackend}}')
 
 echo "......................................"
-echo "[INFO]: Podman versione  : ${podman_version}"
-echo "[INFO]: OCI runtime      : ${oci_name} ${oci_version}"
-echo "[INFO]: Network backend  : ${net_name}"
+echo "[INFO]: OCI runtime  : ${oci_name}"
+echo "[INFO]: NET backend  : ${net_name}"
 echo "......................................"
 
 #
@@ -65,3 +66,4 @@ echo "......................................"
 
 loginctl   enable-linger "$USER"        # consente ad un utente (come root) di eseguire comandi
 setenforce 0                            # disabilita SELinux
+
