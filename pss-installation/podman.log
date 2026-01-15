@@ -7,6 +7,6 @@
     notifempty
     compress
     copytruncate
-    create 0644 user user
-    su user user
+    create 0644 tcuser tcuser
+    su tcuser tcuser
 }
