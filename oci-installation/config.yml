@@ -1,0 +1,31 @@
+version: 0.1
+
+log:
+  level: debug
+  fields:
+    service: registry
+    environment: svil
+
+storage:
+  delete:
+    enabled: true
+  cache:
+    blobdescriptor: inmemory
+  filesystem:
+    rootdirectory: /var/lib/registry
+  tag:
+    concurrencylimit: 5
+
+http:
+  addr: :5000
+
+# auth:
+#   htpasswd:
+#     realm: OCI Registry
+#     path: /auth/htpasswd
+
+health:
+  storagedriver:
+    enabled: true
+    interval: 120s
+    threshold: 3

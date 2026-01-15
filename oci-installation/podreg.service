@@ -1,0 +1,21 @@
+[Unit]
+Description=Docker Registry v3 (Podman)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=5
+
+ExecStart=/usr/bin/podman-compose -f /tools/podreg/conf/docker-compose.yml up -d
+ExecStop=/usr/bin/podman-compose -f /tools/podreg/conf/docker-compose.yml down
+
+TimeoutStartSec=0
+
+StandardOutput=append:/var/log/app/podreg/podreg.log
+StandardError=append:/var/log/app/podreg/podreg.log
+
+[Install]
+WantedBy=default.target

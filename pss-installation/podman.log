@@ -1,0 +1,12 @@
+/var/log/app/podman/*.log {
+    daily
+    dateext
+    dateformat .%Y-%m-%d
+    rotate 3
+    missingok
+    notifempty
+    compress
+    copytruncate
+    create 0644 user user
+    su user user
+}

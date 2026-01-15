@@ -1,0 +1,34 @@
+
+version: "3.9"
+
+services:
+  registry:
+    image: registry:3
+    ports:
+      - "5000:5000"
+    volumes:
+      - /tools/podreg/registry:/var/lib/registry
+      - /tools/podreg/conf/config.yml:/etc/distribution/config.yml
+    environment:
+      - OTEL_TRACES_EXPORTER=none
+    container_name: registry
+
+  registry-ui:
+    image: joxit/docker-registry-ui:2
+    ports:
+      - "8080:80"
+    environment:
+      - SINGLE_REGISTRY=true
+      - REGISTRY_TITLE=OCI Registry UI
+      - DELETE_IMAGES=true
+      - SHOW_CONTENT_DIGEST=true
+      - NGINX_PROXY_PASS_URL=http://registry:5000
+      - SHOW_CATALOG_NB_TAGS=true
+      - CATALOG_MIN_BRANCHES=1
+      - CATALOG_MAX_BRANCHES=1
+      - TAGLIST_PAGE_SIZE=100
+      - REGISTRY_SECURED=false
+      - CATALOG_ELEMENTS_LIMIT=1000
+    container_name: registry-ui
+    depends_on:
+      - registry
