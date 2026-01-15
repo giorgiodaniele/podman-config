@@ -44,7 +44,7 @@ dnf install -y podman-5:${PODMAN_VERSION}-13.el9_6 -y crun-${CRUN_VERSION}-1.el9
 
 # Copia la configurazione containers.conf per garantire l'utlizzo
 # corretto e coerente dei backend
-cp containers.conf /etc/containers/container.conf
+cp containers.conf /etc/containers/containers.conf
 
 #
 #
